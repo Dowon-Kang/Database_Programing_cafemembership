@@ -1,0 +1,213 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <title>Bootstrap 4 Website Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>  
+  
+  <style>
+   .bbs_container { height: 300px; }
+  </style>
+</head>
+<body>
+
+
+<div class="container-fluid ">
+  <div class="p-5 text-center">
+  <h1>한신대학교 컴퓨터공학부</h1>
+  <h4><i>Division of Computer Engineering</i></h4>   
+  </div>
+</div>
+
+
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="main.html">홈</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+      <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="intro.html">학부소개</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="prof.html">교수진</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="course.html">교과과정</a>
+      </li>    
+      <li class="nav-item">
+        <a class="nav-link" href="capston.html">졸업작품</a>
+      </li>    
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<div class="container mt-5">
+  <h2>High IT Tech Leader</h2>
+  <h4><i>for the Unlimited Competition Society</i></h4>            
+  <img src="m3.png" class="img-thumbnail" alt="Cinque Terre" width="100%" height="100%"> 
+</div>
+
+
+
+<div class="container mt-5">
+<h4>카드 뉴스</h4>
+<!-- Carousel -->
+<div id="demo" class="carousel slide" data-bs-ride="carousel">
+
+  <!-- Indicators/dots -->
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>
+    <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
+    <button type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
+    <button type="button" data-bs-target="#demo" data-bs-slide-to="3"></button>    
+  </div>
+  
+  <!-- The slideshow/carousel -->
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="cardnews1.png" alt="" class="d-block" style="width:100%">
+    </div>
+    <div class="carousel-item">
+      <img src="cardnews2.png" alt="" class="d-block" style="width:100%">
+    </div>
+    <div class="carousel-item">
+      <img src="cardnews3.png" alt="" class="d-block" style="width:100%">
+    </div>
+    <div class="carousel-item">
+      <img src="cardnews4.png" alt="" class="d-block" style="width:100%">
+    </div>    
+  </div>
+  
+  <!-- Left and right controls/icons -->
+  <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
+    <span class="carousel-control-next-icon"></span>
+  </button>
+</div>
+</div>
+
+
+<div class="container mt-3">
+  <br/><br/>
+  <h4>공지 사항</h4>
+  <br>
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" data-bs-toggle="tab" href="#home">학부공지</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-bs-toggle="tab" href="#menu1">학생회공지</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-bs-toggle="tab" href="#menu2">취업정보</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-bs-toggle="tab" href="#menu3">학부소식</a>
+    </li>    
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div id="home" class="container tab-pane active bbs_container "><br>
+		<div class="bbs_container">         
+		  <table class="table table-striped">
+		    <thead>
+		      <tr>
+		        <th>제목</th>
+		        <th>날짜</th>
+		      </tr>
+		    </thead>
+		    <tbody>
+		      <tr>
+		        <td>2022-1학기 튜터링 신청 연장 공지</td>
+		        <td>2022.04.04</td>
+		      </tr>
+		      <tr>
+		        <td>[IPP센터] 학생 취업 역량 강화를 위한 면접스킬 특강 공지</td>
+		        <td>2022.04.04</td>
+		      </tr>
+		      <tr>
+		        <td>2022-1 실험실습실 온라인 안전교육 공지(전 학부생 필참)</td>
+		        <td>2022.03.29</td>
+		      </tr>
+		      <tr>
+		        <td>2022-1학기 튜터링 신청 공지</td>
+		        <td>2022.03.29</td>
+		      </tr>      
+		    </tbody>
+		  </table>
+		</div>    
+	</div>
+    <div id="menu1" class="container tab-pane fade bbs_container "><br>
+      <br/><br/>
+	  <p>최근게시물이(가) 없습니다.</p>  
+	 </div>
+    <div id="menu2" class="container tab-pane fade bbs_container "><br>
+		<div class="container">         
+		  <table class="table table-striped">
+		    <thead>
+		      <tr>
+		        <th>제목</th>
+		        <th>날짜</th>
+		      </tr>
+		    </thead>
+		    <tbody>
+		      <tr>
+		        <td>경기도경제과학진흥원에서 주관하는 이공계 연수사업 연수생 모집 안내</td>
+		        <td>22022.04.06</td>
+		      </tr>
+		      <tr>
+		        <td>매월 1주일간 재택 아르바이트 학생 모집 (전산관련학과 재학생)</td>
+		        <td>2022.03.23</td>
+		      </tr>
+		      <tr>
+		        <td>주식회사 오투 신입사원 모집</td>
+		        <td>2021.12.31</td>
+		      </tr>
+		      <tr>
+		        <td>(주)윈스 상반기 신입/경력 공개채용</td>
+		        <td>2021.12.30</td>
+		      </tr>      
+		    </tbody>
+		  </table>
+		</div>
+    </div>
+    <div id="menu3" class="bbs_container tab-pane fade bbs_container "><br>
+		<div class="container">         
+		  <table class="table table-striped">
+		    <thead>
+		      <tr>
+		        <th>제목</th>
+		        <th>날짜</th>
+		      </tr>
+		    </thead>
+		    <tbody>
+		      <tr>
+		        <td>R&D 산업인턴 종합결과보고서 공모전 수상자</td>
+		        <td>2021.12.29</td>
+		      </tr>   
+		    </tbody>
+		  </table>
+		</div>
+    </div>      
+  </div>
+</div>
+
+
+
+<div class="mt-5 p-3 bg-light text-center" style="bottom-margin:0">
+	  <h6>Bootstrap Example</h6>   
+</div>
+
+</body>
+</html>
