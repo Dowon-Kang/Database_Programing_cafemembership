@@ -1,19 +1,37 @@
-CREATE TABLE book3 (
-    productid VARCHAR(10) NOT NULL Primary Key,
-    pname VARCHAR(20),
-    unitprice INT,
-    description VARCHAR(100), 
-    manufacturer VARCHAR(40),
-    category VARCHAR(20),
-    unitsinstock INT,
-    condition VARCHAR(10),
-    productimg VARCHAR(20)
-)
+DROP TABLE IF EXISTS MEMBER;
 
-INSERT INTO book3(productid, pname, unitprice, description, manufacturer, category, unitsInstock, condition, productimg) values('B1111', 'µ¥ÀÌÅÍº£ÀÌ½º', 30000, 'µ¥ÀÌÅÍº£ÀÌ½º ÀÌ·Ğ, SQL, Á¤±ÔÈ­, E-R ´ÙÀÌ¾Æ±×·¥', '»ı»ıÃâÆÇ»ç', 'DB', 100, '½Å»óµµ¼­', '/img/book1.jpg');
-INSERT INTO book3(productid, pname, unitprice, description, manufacturer, category, unitsInstock, condition,  productimg) values('B2222', 'DB¿Í JSP', 25000, 'µ¥ÀÌÅÍº£ÀÌ½º, JSP, HTML, Servlet, JDBC', 'ÇÑ¹°ÃâÆÇ»ç', 'Web', 2000, 'Áß°íµµ¼­', '/img/book2.jpg');
-INSERT INTO book3(productid, pname, unitprice, description, manufacturer, category, unitsInstock, condition,  productimg) values('B3333', 'Spring', 40000, 'Spring Framwork, Spring Boot, Java Bean', '»ı»ıÃâÆÇ»ç', 'Web', 500, 'Àç»ıµµ¼­', '/img/book3.jpg');
+CREATE TABLE MEMBER (
+    member_id VARCHAR(20) NOT NULL,
+    password VARCHAR(100) NOT NULL,
+    name VARCHAR(50) NOT NULL,
+    phone VARCHAR(20) NOT NULL,
+    stamp_count INT DEFAULT 0,
+    join_date DATE DEFAULT CURRENT_DATE,
+	admin_yn CHAR(1) DEFAULT 'N' NOT NULL,
+    CONSTRAINT PK_MEMBER PRIMARY KEY (member_id),
+	CONSTRAINT UQ_MEMBER_PHONE UNIQUE (phone),
+	CONSTRAINT CK_MEMBER_ADMIN_YN CHECK (admin_yn IN ('Y', 'N'))
+);
 
-SELECT * FROM book3;
+COMMENT ON TABLE MEMBER IS 'ì¹´í˜ ë©¤ë²„ì‹­ íšŒì› í…Œì´ë¸”';
+COMMENT ON COLUMN MEMBER.member_id IS 'íšŒì› ë¡œê·¸ì¸ ì•„ì´ë”” [PK]';
+COMMENT ON COLUMN MEMBER.password IS 'ì•”í˜¸í™”ëœ ë¹„ë°€ë²ˆí˜¸';
+COMMENT ON COLUMN MEMBER.name IS 'íšŒì› ì´ë¦„';
+COMMENT ON COLUMN MEMBER.phone IS 'ì „í™”ë²ˆí˜¸ (ë§¤ì¥ ì ë¦½ ë° ê²€ìƒ‰ìš©) [UQ]';
+COMMENT ON COLUMN MEMBER.stamp_count IS 'ë³´ìœ  ìŠ¤íƒ¬í”„ ê°œìˆ˜ (ê¸°ë³¸ê°’ 0)';
+COMMENT ON COLUMN MEMBER.join_date IS 'íšŒì› ê°€ì…ì¼ (ê¸°ë³¸ê°’ í˜„ì¬ ë‚ ì§œ)';
+COMMENT ON COLUMN MEMBER.admin_yn IS 'ê´€ë¦¬ì ê³„ì • ì—¬ë¶€ (Y/N)';
 
-DROP TABLE book3;
+INSERT INTO MEMBER (member_id, password, name, phone, stamp_count, admin_yn)
+VALUES ('admin', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'ê´€ë¦¬ì', '010-0000-0000', 0, 'Y');
+
+INSERT INTO MEMBER (member_id, password, name, phone, stamp_count, admin_yn)
+VALUES ('cafe01', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'ê¹€í•˜ëŠ˜', '010-1111-2222', 3, 'N');
+
+INSERT INTO MEMBER (member_id, password, name, phone, stamp_count, admin_yn)
+VALUES ('cafe02', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'ì´ì„œì¤€', '010-3333-4444', 8, 'N');
+
+INSERT INTO MEMBER (member_id, password, name, phone, stamp_count, admin_yn)
+VALUES ('cafe03', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'ë°•ë¯¼ì§€', '010-5555-6666', 12, 'N');
+
+SELECT * FROM MEMBER;

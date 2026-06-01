@@ -12,6 +12,9 @@
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
                                 
         
+        <wb-resource deploy-path="/WEB-INF/lib" source-path="/src/main/webapp/WEB-INF/lib"/>
+                                
+        
         
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
                                 

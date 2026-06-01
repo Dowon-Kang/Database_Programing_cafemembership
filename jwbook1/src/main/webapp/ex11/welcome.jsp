@@ -9,12 +9,12 @@
 	<jsp:include page="menu.jsp"/>
 	<div class="jumbotron">
 		<div class="container">
-			<h2 class="display-3">북스토어에 오신 것을 환영합니다</h2>
+			<h2 class="display-3">카페 멤버십 관리 시스템</h2>
 		</div>
 	</div>	
 	<div class="container">
 		<div class="text-center">
-			<h3>Welcome to Book Market!</h3>
+			<h3>Welcome to Cafe Membership Manager!</h3>
 			<%!
 				int pageCount = 0;
 				void addCount() {
@@ -22,7 +22,7 @@
 				}
 			%>
 			<% 	addCount();  %>
-			<p>	이 사이트 방문자로는 <span style="color:red"> <%=pageCount%> </span> 번째 입니다.</p>			
+			<p>	이 페이지 방문자는 <span style="color:red"> <%=pageCount%> </span> 번째 입니다.</p>			
 		</div>
 		<hr>
 	</div>	
