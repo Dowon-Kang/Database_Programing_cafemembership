@@ -12,6 +12,7 @@
 				<c:choose>
 					<c:when test="${empty sessionId}">
 						<li class="nav-item"><a class="nav-link" href="<c:url value="/memberControl?action=login"/>">로그인 </a></li>
+						<li class="nav-item"><a class="nav-link" href="<c:url value="/memberControl?action=signup"/>">회원가입</a></li>
 					</c:when>
 					<c:otherwise>
 						<li style="padding-top: 7px; color: white">[${sessionName}님<c:if test="${sessionIsAdmin}"> | 관리자</c:if>]</li>	

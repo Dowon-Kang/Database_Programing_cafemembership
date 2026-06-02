@@ -3,10 +3,12 @@ package ex11;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,8 +23,9 @@ public class MemberDAO {
 		try {
 			Class.forName(JDBC_DRIVER);
 			conn = DriverManager.getConnection(JDBC_URL, "user1", "1234");
+			ensureSchema();
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new IllegalStateException("데이터베이스 연결에 실패했습니다.", e);
 		}
 	}
 
@@ -37,7 +40,7 @@ public class MemberDAO {
 
 	public void insert(Member member) {
 		open();
-		String sql = "INSERT INTO member(member_id, password, name, phone, stamp_count, join_date, admin_yn) VALUES(?, ?, ?, ?, ?, CURRENT_DATE, ?)";
+		String sql = "INSERT INTO member(member_id, password, name, phone, stamp_count, join_date, admin_yn, image_url) VALUES(?, ?, ?, ?, ?, CURRENT_DATE, ?, ?)";
 
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -47,9 +50,10 @@ public class MemberDAO {
 			pstmt.setString(4, member.getPhone());
 			pstmt.setInt(5, member.getStampCount() == null ? 0 : member.getStampCount());
 			pstmt.setString(6, normalizeAdminYn(member.getAdminYn()));
+			pstmt.setString(7, normalizeImageUrl(member.getImageUrl()));
 			pstmt.executeUpdate();
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new IllegalStateException("회원 저장에 실패했습니다.", e);
 		} finally {
 			close();
 		}
@@ -66,7 +70,7 @@ public class MemberDAO {
 		try {
 			String normalizedKeyword = keyword == null ? "" : keyword.trim().toLowerCase();
 			boolean hasKeyword = !normalizedKeyword.isEmpty();
-			String sql = "SELECT member_id, password, name, phone, stamp_count, join_date, admin_yn FROM member";
+			String sql = "SELECT member_id, password, name, phone, stamp_count, join_date, admin_yn, image_url FROM member";
 			if (hasKeyword) {
 				sql += " WHERE LOWER(member_id) LIKE ? OR LOWER(name) LIKE ? OR phone LIKE ?";
 			}
@@ -85,7 +89,7 @@ public class MemberDAO {
 				members.add(mapRow(rs));
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new IllegalStateException("회원 목록 조회에 실패했습니다.", e);
 		} finally {
 			close();
 		}
@@ -98,7 +102,7 @@ public class MemberDAO {
 		Member member = null;
 
 		try {
-			pstmt = conn.prepareStatement("SELECT member_id, password, name, phone, stamp_count, join_date, admin_yn FROM member WHERE member_id = ?");
+			pstmt = conn.prepareStatement("SELECT member_id, password, name, phone, stamp_count, join_date, admin_yn, image_url FROM member WHERE member_id = ?");
 			pstmt.setString(1, id);
 			ResultSet rs = pstmt.executeQuery();
 
@@ -106,7 +110,7 @@ public class MemberDAO {
 				member = mapRow(rs);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new IllegalStateException("회원 정보를 불러오지 못했습니다.", e);
 		} finally {
 			close();
 		}
@@ -118,7 +122,7 @@ public class MemberDAO {
 		Member member = null;
 
 		try {
-			pstmt = conn.prepareStatement("SELECT member_id, password, name, phone, stamp_count, join_date, admin_yn FROM member WHERE member_id = ? AND password = ?");
+			pstmt = conn.prepareStatement("SELECT member_id, password, name, phone, stamp_count, join_date, admin_yn, image_url FROM member WHERE member_id = ? AND password = ?");
 			pstmt.setString(1, memberId);
 			pstmt.setString(2, hashPassword(password));
 			ResultSet rs = pstmt.executeQuery();
@@ -127,7 +131,7 @@ public class MemberDAO {
 				member = mapRow(rs);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new IllegalStateException("로그인 처리에 실패했습니다.", e);
 		} finally {
 			close();
 		}
@@ -137,7 +141,7 @@ public class MemberDAO {
 
 	public void update(Member member) {
 		open();
-		String sql = "UPDATE member SET password = ?, name = ?, phone = ?, stamp_count = ?, admin_yn = ? WHERE member_id = ?";
+		String sql = "UPDATE member SET password = ?, name = ?, phone = ?, stamp_count = ?, admin_yn = ?, image_url = ? WHERE member_id = ?";
 
 		try {
 			String passwordToStore = member.getPassword();
@@ -153,10 +157,11 @@ public class MemberDAO {
 			pstmt.setString(3, member.getPhone());
 			pstmt.setInt(4, member.getStampCount() == null ? 0 : member.getStampCount());
 			pstmt.setString(5, normalizeAdminYn(member.getAdminYn()));
-			pstmt.setString(6, member.getMemberId());
+			pstmt.setString(6, normalizeImageUrl(member.getImageUrl()));
+			pstmt.setString(7, member.getMemberId());
 			pstmt.executeUpdate();
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new IllegalStateException("회원 수정에 실패했습니다.", e);
 		} finally {
 			close();
 		}
@@ -170,7 +175,7 @@ public class MemberDAO {
 			pstmt.setString(1, memberId);
 			pstmt.executeUpdate();
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new IllegalStateException("회원 삭제에 실패했습니다.", e);
 		} finally {
 			close();
 		}
@@ -184,7 +189,7 @@ public class MemberDAO {
 			pstmt.setString(1, memberId);
 			pstmt.executeUpdate();
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new IllegalStateException("스탬프 적립에 실패했습니다.", e);
 		} finally {
 			close();
 		}
@@ -199,7 +204,21 @@ public class MemberDAO {
 		member.setStampCount(rs.getInt("stamp_count"));
 		member.setJoinDate(rs.getString("join_date"));
 		member.setAdminYn(rs.getString("admin_yn"));
+		member.setImageUrl(rs.getString("image_url"));
 		return member;
+	}
+
+	private void ensureSchema() throws SQLException {
+		DatabaseMetaData metaData = conn.getMetaData();
+		try (ResultSet rs = metaData.getColumns(null, null, "MEMBER", "IMAGE_URL")) {
+			if (rs.next()) {
+				return;
+			}
+		}
+
+		try (Statement statement = conn.createStatement()) {
+			statement.executeUpdate("ALTER TABLE member ADD COLUMN image_url VARCHAR(500)");
+		}
 	}
 
 	private String findStoredPasswordHash(String memberId) throws SQLException {
@@ -216,6 +235,15 @@ public class MemberDAO {
 
 	private String normalizeAdminYn(String adminYn) {
 		return "Y".equalsIgnoreCase(adminYn) ? "Y" : "N";
+	}
+
+	private String normalizeImageUrl(String imageUrl) {
+		if (imageUrl == null) {
+			return null;
+		}
+
+		String trimmedImageUrl = imageUrl.trim();
+		return trimmedImageUrl.isEmpty() ? null : trimmedImageUrl;
 	}
 
 	private String hashPassword(String password) {

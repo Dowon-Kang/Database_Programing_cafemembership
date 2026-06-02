@@ -5,6 +5,7 @@ CREATE TABLE MEMBER (
     password VARCHAR(100) NOT NULL,
     name VARCHAR(50) NOT NULL,
     phone VARCHAR(20) NOT NULL,
+    image_url VARCHAR(500),
     stamp_count INT DEFAULT 0,
     join_date DATE DEFAULT CURRENT_DATE,
 	admin_yn CHAR(1) DEFAULT 'N' NOT NULL,
@@ -18,6 +19,7 @@ COMMENT ON COLUMN MEMBER.member_id IS '회원 로그인 아이디 [PK]';
 COMMENT ON COLUMN MEMBER.password IS '암호화된 비밀번호';
 COMMENT ON COLUMN MEMBER.name IS '회원 이름';
 COMMENT ON COLUMN MEMBER.phone IS '전화번호 (매장 적립 및 검색용) [UQ]';
+COMMENT ON COLUMN MEMBER.image_url IS '회원 프로필 이미지 URL';
 COMMENT ON COLUMN MEMBER.stamp_count IS '보유 스탬프 개수 (기본값 0)';
 COMMENT ON COLUMN MEMBER.join_date IS '회원 가입일 (기본값 현재 날짜)';
 COMMENT ON COLUMN MEMBER.admin_yn IS '관리자 계정 여부 (Y/N)';

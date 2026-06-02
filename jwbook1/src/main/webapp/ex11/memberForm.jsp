@@ -46,6 +46,21 @@
 				</div>
 			</div>
 			<div class="form-group row">
+				<label class="col-sm-2">프로필 이미지 URL</label>
+				<div class="col-sm-5">
+					<input type="url" name="imageUrl" class="form-control" value="${member.imageUrl}" placeholder="https://example.com/profile.jpg">
+					<small class="form-text text-muted">이미지 주소를 넣으면 회원 상세와 목록에서 표시됩니다.</small>
+				</div>
+			</div>
+			<c:if test="${not empty member.imageUrl}">
+			<div class="form-group row">
+				<label class="col-sm-2">미리보기</label>
+				<div class="col-sm-3">
+					<img src="${member.imageUrl}" alt="프로필 미리보기" style="width: 120px; height: 120px; object-fit: cover; border-radius: 10px; border: 1px solid #dee2e6;">
+				</div>
+			</div>
+			</c:if>
+			<div class="form-group row">
 				<label class="col-sm-2">스탬프 개수</label>
 				<div class="col-sm-3">
 					<input type="number" name="stampCount" class="form-control" value="${empty member.stampCount ? 0 : member.stampCount}" min="0" <c:if test="${allowStampEdit eq false}">readonly</c:if>>

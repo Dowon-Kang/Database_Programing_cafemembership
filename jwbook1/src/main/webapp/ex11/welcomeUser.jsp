@@ -19,6 +19,9 @@
 			<c:if test="${not empty authError}">
 				<div class="alert alert-danger">${authError}</div>
 			</c:if>
+			<c:if test="${not empty sessionImageUrl}">
+				<p><img src="${sessionImageUrl}" alt="프로필 이미지" style="width: 140px; height: 140px; object-fit: cover; border-radius: 50%; border: 4px solid #dee2e6;"></p>
+			</c:if>
 			<h4>Welcome to Cafe Membership Manager!</h4>
 			<p>회원 아이디: <strong>${sessionId}</strong></p>
 			<p>권한: <strong><c:choose><c:when test="${sessionIsAdmin}">관리자</c:when><c:otherwise>일반 회원</c:otherwise></c:choose></strong></p>

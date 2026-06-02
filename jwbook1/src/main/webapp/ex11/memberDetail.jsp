@@ -23,9 +23,13 @@
 				<c:if test="${not empty detailMessage}">
 					<div class="alert alert-success">${detailMessage}</div>
 				</c:if>
+				<c:if test="${not empty member.imageUrl}">
+					<p><img src="${member.imageUrl}" alt="프로필 이미지" style="width: 160px; height: 160px; object-fit: cover; border-radius: 12px; border: 1px solid #dee2e6;"></p>
+				</c:if>
 				<h3>${member.name}</h3>
 				<p><b>회원 ID</b> : <span class="badge badge-primary">${member.memberId}</span></p>
 				<p><b>전화번호</b> : ${member.phone}</p>
+				<p><b>프로필 이미지</b> : <c:choose><c:when test="${not empty member.imageUrl}">${member.imageUrl}</c:when><c:otherwise>미등록</c:otherwise></c:choose></p>
 				<p><b>스탬프 개수</b> : ${member.stampCount}</p>
 				<p><b>가입일</b> : ${member.joinDate}</p>
 				<p>

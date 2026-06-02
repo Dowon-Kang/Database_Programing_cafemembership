@@ -45,6 +45,7 @@ public class MemberController extends HttpServlet {
 		switch (action) {
 			case "welcome": view = welcome(request, response); break;
 			case "login": view = login(request, response); break;
+			case "signup": view = signup(request, response); break;
 			case "welcomeUser": view = welcomeUser(request, response); break;
 			case "myInfo": view = myInfo(request, response); break;
 			case "editMyInfo": view = editMyInfo(request, response); break;
@@ -53,6 +54,7 @@ public class MemberController extends HttpServlet {
 			case "addMember": view = addMember(request, response); break;
 			case "editMember": view = editMember(request, response); break;
 			case "processLogin": view = processLogin(request, response); break;
+			case "processSignup": view = processSignup(request, response); break;
 			case "processLogout": view = processLogout(request, response); break;
 			case "processAddMember": view = processAddMember(request, response); break;
 			case "processUpdateMember": view = processUpdateMember(request, response); break;
@@ -71,6 +73,11 @@ public class MemberController extends HttpServlet {
 
 	private String login(HttpServletRequest request, HttpServletResponse response) {
 		return "login.jsp";
+	}
+
+	private String signup(HttpServletRequest request, HttpServletResponse response) {
+		request.setAttribute("member", new Member());
+		return "signup.jsp";
 	}
 
 	private String welcomeUser(HttpServletRequest request, HttpServletResponse response) {
@@ -145,8 +152,29 @@ public class MemberController extends HttpServlet {
 		session.setAttribute("sessionId", member.getMemberId());
 		session.setAttribute("sessionName", member.getName());
 		session.setAttribute("sessionIsAdmin", member.isAdmin());
+		session.setAttribute("sessionImageUrl", member.getImageUrl());
 
 		return "welcomeUser.jsp";
+	}
+
+	private String processSignup(HttpServletRequest request, HttpServletResponse response) {
+		Member member = new Member();
+
+		try {
+			BeanUtils.populate(member, request.getParameterMap());
+			member.setAdminYn("N");
+			member.setStampCount(0);
+			dao.insert(member);
+			request.setAttribute("signupMessage", "회원가입이 완료되었습니다. 로그인해 주세요.");
+			request.setAttribute("enteredId", member.getMemberId());
+			return "login.jsp";
+		} catch (Exception e) {
+			e.printStackTrace();
+			ctx.log("회원가입 과정에서 문제 발생!!");
+			request.setAttribute("member", member);
+			request.setAttribute("signupError", "회원가입에 실패했습니다. 아이디 또는 전화번호 중복 여부를 확인하세요.");
+			return "signup.jsp";
+		}
 	}
 
 	private String processLogout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -212,6 +240,7 @@ public class MemberController extends HttpServlet {
 			dao.update(member);
 			Member updatedMember = dao.find(sessionMemberId);
 			session.setAttribute("sessionName", updatedMember.getName());
+			session.setAttribute("sessionImageUrl", updatedMember.getImageUrl());
 			request.setAttribute("member", updatedMember);
 			request.setAttribute("isMyInfo", true);
 			return "memberDetail.jsp";

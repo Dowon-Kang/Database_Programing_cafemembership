@@ -48,6 +48,7 @@
             <table class="table table-bordered table-hover">
                 <thead class="thead-light">
                     <tr>
+                        <th>프로필</th>
                         <th>회원 ID</th>
                         <th>이름</th>
                         <th>전화번호</th>
@@ -61,6 +62,13 @@
                     for (Member member : members) {
                 %>
                     <tr>
+                        <td>
+                            <% if (member.getImageUrl() != null && !member.getImageUrl().trim().isEmpty()) { %>
+                            <img src="<%= member.getImageUrl() %>" alt="프로필" style="width:48px; height:48px; object-fit:cover; border-radius:50%;">
+                            <% } else { %>
+                            <span class="text-muted">없음</span>
+                            <% } %>
+                        </td>
                         <td><%= member.getMemberId() %></td>
                         <td><%= member.getName() %></td>
                         <td><%= member.getPhone() %></td>

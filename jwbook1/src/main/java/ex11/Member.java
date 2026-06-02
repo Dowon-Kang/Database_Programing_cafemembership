@@ -8,6 +8,7 @@ public class Member {
 	private Integer stampCount;
 	private String joinDate;
 	private String adminYn;
+	private String imageUrl;
 
 	public String getMemberId() {
 		return memberId;
@@ -63,6 +64,14 @@ public class Member {
 
 	public void setAdminYn(String adminYn) {
 		this.adminYn = adminYn;
+	}
+
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
 	}
 
 	public boolean isAdmin() {
