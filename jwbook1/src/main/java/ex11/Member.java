@@ -1,71 +1,40 @@
 package ex11;
 
+import java.sql.Timestamp;
+
 public class Member {
-	private String memberId;
-	private String password;
-	private String name;
-	private String phone;
-	private Integer stampCount;
-	private String joinDate;
-	private String adminYn;
+    private String memberId;
+    private String password;
+    private String name;
+    private String phone;
+    private int stampCount;    // 반드시 소문자 int
+    private String adminYn;
+    private Timestamp joinDate; // 반드시 Timestamp
 
-	public String getMemberId() {
-		return memberId;
-	}
+    public Member() {}
 
-	public void setMemberId(String memberId) {
-		this.memberId = memberId;
-	}
+    public String getMemberId() { return memberId; }
+    public void setMemberId(String memberId) { this.memberId = memberId; }
 
-	public String getPassword() {
-		return password;
-	}
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
-	public String getName() {
-		return name;
-	}
+    public String getPhone() { return phone; }
+    public void setPhone(String phone) { this.phone = phone; }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public int getStampCount() { return stampCount; }
+    public void setStampCount(int stampCount) { this.stampCount = stampCount; }
 
-	public String getPhone() {
-		return phone;
-	}
+    public String getAdminYn() { return adminYn; }
+    public void setAdminYn(String adminYn) { this.adminYn = adminYn; }
 
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
+    public Timestamp getJoinDate() { return joinDate; }
+    public void setJoinDate(Timestamp joinDate) { this.joinDate = joinDate; }
 
-	public Integer getStampCount() {
-		return stampCount;
-	}
-
-	public void setStampCount(Integer stampCount) {
-		this.stampCount = stampCount;
-	}
-
-	public String getJoinDate() {
-		return joinDate;
-	}
-
-	public void setJoinDate(String joinDate) {
-		this.joinDate = joinDate;
-	}
-
-	public String getAdminYn() {
-		return adminYn;
-	}
-
-	public void setAdminYn(String adminYn) {
-		this.adminYn = adminYn;
-	}
-
-	public boolean isAdmin() {
-		return "Y".equalsIgnoreCase(adminYn);
-	}
+    public boolean isAdmin() {
+        return "Y".equals(this.adminYn);
+    }
 }
