@@ -1,18 +1,2 @@
 /build/
 /target/
-
-# Keep only the ex11 member management app tracked.
-/src/main/java/ch05/
-/src/main/java/ch07/
-/src/main/java/ex7/
-/src/main/webapp/ch05/
-/src/main/webapp/ch07/
-/src/main/webapp/Ch09/
-/src/main/webapp/ex5_서블릿로그인폼/
-/src/main/webapp/ex6_액션태그_완성본/
-/src/main/webapp/ex7/
-/src/main/webapp/hello.jsp
-
-# Keep the assets folder, but do not track uploaded images.
-/src/main/webapp/assets/img/*
-!/src/main/webapp/assets/img/.gitkeep
