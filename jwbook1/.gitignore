@@ -12,3 +12,7 @@
 /src/main/webapp/ex6_액션태그_완성본/
 /src/main/webapp/ex7/
 /src/main/webapp/hello.jsp
+
+# Keep the assets folder, but do not track uploaded images.
+/src/main/webapp/assets/img/*
+!/src/main/webapp/assets/img/.gitkeep
