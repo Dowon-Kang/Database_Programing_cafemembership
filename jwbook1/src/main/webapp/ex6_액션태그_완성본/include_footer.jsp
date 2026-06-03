@@ -1,1 +1,0 @@
-Copyright © database programming
